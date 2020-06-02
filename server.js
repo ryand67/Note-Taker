@@ -47,6 +47,9 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", (req, res) => {
     let id = req.params.id;
     notes.splice(id - 1, 1);
+    for(let i = 0; i < notes.length; i++) {
+        notes[i].id = i + 1;
+    }
     fs.writeFileSync(__dirname + '/db/db.json', JSON.stringify(notes, null, 2), (err) => {
         if(err) throw err;
     })
