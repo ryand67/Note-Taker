@@ -38,14 +38,18 @@ app.post("/api/notes", (req, res) => {
     let newNote = req.body;
     newNote.id = notes.length + 1;
     notes.push(newNote);
-    fs.writeFile(__dirname + '/db/db.json', JSON.stringify(notes, null, 2), (err) => {
+    fs.writeFileSync(__dirname + '/db/db.json', JSON.stringify(notes, null, 2), (err) => {
         if(err) throw err;
     })
     res.end();
 })
 
 app.delete("/api/notes/:id", (req, res) => {
-    console.log(req.params.id);
+    let id = req.params.id;
+    notes.splice(id - 1, 1);
+    fs.writeFileSync(__dirname + '/db/db.json', JSON.stringify(notes, null, 2), (err) => {
+        if(err) throw err;
+    })
     res.end();
 })
 
