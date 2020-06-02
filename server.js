@@ -6,6 +6,8 @@ const app = express();
 const PORT = 8080;
 
 app.use(express.static('public'));
+app.use(expres.urlencoded({extended: true}));
+app.use(express.json());
 
 app.get("/", (req, res) => {
     let page = fs.readFileSync(__dirname + "/public/index.html", (err) => {
